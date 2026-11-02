@@ -1,5 +1,33 @@
 [
  {
+  "draw": "d6345a",
+  "shape": "Map / Diagram",
+  "theme": "grid",
+  "axes": "StackPlus UI V3: Inter, warm paper, blue signal and existing spacing tokens; Grid layout language only",
+  "hero": "Honest map of active SIDS modules with portal sign-in",
+  "nav": "Eduscout logo, module anchors and portal sign-in",
+  "footer": "Eduscout identity, module anchor and return-to-top link",
+  "imagery": "Existing Eduscout logo and module map; no captured product screenshot because the available dashboard capture showed an error state",
+  "photos": [],
+  "entry": "Sign in to the existing school portal",
+  "fingerprint": "sids-public-landing-map-d6345a",
+  "sections": [
+   "Hero system map",
+   "Implemented modules",
+   "Operational workflow",
+   "User roles",
+   "Scope and transparent FAQ",
+   "Portal CTA"
+  ],
+  "signature": "A map of SIDS modules already present in the app",
+  "waived": [
+   "78: section headings held at text-3xl by docs/ui.md"
+  ],
+  "prompt": "Create a detailed Indonesian landing page at / using docs/ui.md, link to /auth/login, and avoid claims for unimplemented features.",
+  "date": "2026-11-02",
+  "mode": "build"
+ },
+ {
   "mode": "redesign",
   "depth": "full",
   "scope": "app",
