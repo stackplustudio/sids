@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "target": "apps/web/src/app",
+  "shape": "app screen",
+  "genre": "modern-minimal",
+  "theme": "brand",
+  "redesign": "full",
+  "sources": [
+    {
+      "file": "docs/ui.md",
+      "lines": "210-320, 1170-1225",
+      "preserve": "StackPlus UI System V3 brand palette, Inter type, spacing, radius, controls, breakpoints, semantic colors, and explicit shadcn mappings."
+    },
+    {
+      "file": "PRD-School-Integrated-Digital-System-SIDS.md",
+      "lines": "95-165, 190-240",
+      "preserve": "SIDS roles, modules, and existing product workflows."
+    },
+    {
+      "file": "apps/web/src/app/auth/login/page.tsx",
+      "lines": "1-44",
+      "preserve": "Login API request, token persistence, toast feedback, and role-based routing."
+    },
+    {
+      "file": "apps/web/src/components/layout/Sidebar.tsx",
+      "lines": "20-99",
+      "preserve": "Role-based module links and logout behavior."
+    },
+    {
+      "file": "apps/web/src/app/dashboard/main/page.tsx",
+      "lines": "14-42",
+      "preserve": "Admin overview endpoint and live statistics."
+    }
+  ],
+  "material": {
+    "real": [
+      "Eduscout product identity",
+      "SIDS role-specific application modules",
+      "Existing API-backed dashboard data"
+    ],
+    "pictures": [
+      {
+        "asset": "apps/web/public/logo.jpg",
+        "use": "Existing Eduscout product logo; user confirmed it should remain."
+      }
+    ],
+    "absent": [
+      "No new photography or testimonial material",
+      "No fabricated statistics"
+    ]
+  },
+  "preserved": [
+    "Routing, API integration, handlers, form fields, role access, and existing product logo."
+  ],
+  "introduced": [
+    "Token-aligned StackPlus UI System V3 styling",
+    "Responsive role-aware navigation",
+    "Consistent loading, empty, and error presentation without placeholder metrics"
+  ]
+}

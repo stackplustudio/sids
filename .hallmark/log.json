@@ -1,0 +1,29 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "app",
+  "theme": "brand",
+  "shape": "SIDS application screens",
+  "axes": "StackPlus UI System V3: Inter, warm paper, blue signal, shared components",
+  "hero": "Eduscout sign-in paired with a clear, real-data school overview",
+  "nav": "Responsive role-aware sidebar with a mobile drawer",
+  "footer": "Persistent sidebar sign-out action",
+  "imagery": "Existing Eduscout logo; no new photography",
+  "photos": [],
+  "entry": "Authenticate to the existing school portal",
+  "fingerprint": "sids-eduscout-full-ui-revamp-2026-11",
+  "sections": [
+   "Login",
+   "Role-based module landing",
+   "Admin overview",
+   "Existing academic and operational routes"
+  ],
+  "signature": "Eduscout identity with accurate SIDS modules and live school data",
+  "waived": [
+   "72: scrollable sidebar clipping offscreen links"
+  ],
+  "prompt": "Revamp the SIDS application UI according to docs/ui.md while preserving branding, existing routes, business logic and integrations.",
+  "date": "2026-11-02"
+ }
+]

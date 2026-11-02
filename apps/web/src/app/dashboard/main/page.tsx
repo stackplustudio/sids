@@ -3,80 +3,167 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/axios";
 import { toast } from "react-hot-toast";
-import { Users, GraduationCap, Briefcase, Library, Activity, CalendarClock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+type AdminOverview = {
+  statistik: {
+    totalSiswa: number;
+    totalGuru: number;
+    totalKelas: number;
+    totalPendaftar: number;
+  };
+  informasi_akademik?: string;
+};
+
+type DashboardStat = {
+  title: string;
+  value: number;
+};
+
+function getInitialUserName() {
+  if (typeof window === "undefined") return "Admin";
+
+  try {
+    const storedUser = window.localStorage.getItem("user");
+    if (!storedUser) return "Admin";
+
+    const user: { name?: unknown } = JSON.parse(storedUser);
+    return typeof user.name === "string" && user.name.trim() ? user.name : "Admin";
+  } catch (error) {
+    console.error("Gagal membaca nama user.", error);
+    return "Admin";
+  }
+}
 
 export default function AdminDashboardPage() {
-  const [data, setData] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [userName, setUserName] = useState("Admin");
+  const [data, setData] = useState<AdminOverview | null>(null);
+  const [status, setStatus] = useState<"loading" | "error" | "success">("loading");
+  const [userName] = useState(getInitialUserName);
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
+    let active = true;
+
     const fetchStats = async () => {
+      setStatus("loading");
       try {
-        const res = await api.get("/dashboard-stats/admin-overview");
-        setData(res.data);
-      } catch (error) {
-        toast.error("Gagal memuat data statistik.");
-      } finally {
-        setIsLoading(false);
+        const res = await api.get<AdminOverview>("/dashboard-stats/admin-overview");
+        const stats = res.data?.statistik;
+        if (
+          !stats ||
+          ![
+            stats.totalSiswa,
+            stats.totalGuru,
+            stats.totalKelas,
+            stats.totalPendaftar,
+          ].every((value) => Number.isFinite(value))
+        ) {
+          throw new Error("Respons statistik sekolah tidak lengkap.");
+        }
+        if (active) {
+          setData(res.data);
+          setStatus("success");
+        }
+      } catch {
+        if (active) {
+          setData(null);
+          setStatus("error");
+          toast.error("Gagal memuat data statistik.");
+        }
       }
     };
 
-    const user = localStorage.getItem("user");
-    if (user) {
-      setUserName(JSON.parse(user).name);
-    }
+    void fetchStats();
+    return () => {
+      active = false;
+    };
+  }, [reload]);
 
-    fetchStats();
-  }, []);
+  if (status === "loading") {
+    return (
+      <div
+        role="status"
+        aria-live="polite"
+        className="mx-auto max-w-[1280px] p-4 sm:p-6 lg:p-8"
+      >
+        <p className="text-sm text-brand-ink-muted">Memuat ringkasan sekolah…</p>
+      </div>
+    );
+  }
 
-  if (isLoading) return <div className="p-8">Memuat Analytics...</div>;
+  if (status === "error" || !data) {
+    return (
+      <div className="mx-auto max-w-[1280px] p-4 sm:p-6 lg:p-8">
+        <section
+          role="alert"
+          className="max-w-2xl rounded-xl border border-brand-line bg-brand-surface p-6 shadow-sm sm:p-8"
+        >
+          <h1 className="text-2xl font-semibold text-brand-ink-dark">
+            Ringkasan belum tersedia
+          </h1>
+          <p className="mt-2 text-sm leading-6 text-brand-ink-muted">
+            Data sekolah belum dapat dimuat. Periksa koneksi, lalu coba kembali.
+          </p>
+          <Button
+            type="button"
+            className="mt-5"
+            onClick={() => setReload((count) => count + 1)}
+          >
+            Coba lagi
+          </Button>
+        </section>
+      </div>
+    );
+  }
 
-  const statCards = [
-    { title: "Total Siswa Aktif", value: data?.statistik.totalSiswa || 0, icon: GraduationCap, color: "text-blue-600", bg: "bg-blue-100" },
-    { title: "Total Guru", value: data?.statistik.totalGuru || 0, icon: Briefcase, color: "text-teal-600", bg: "bg-teal-100" },
-    { title: "Rombongan Belajar", value: data?.statistik.totalKelas || 0, icon: Library, color: "text-orange-600", bg: "bg-orange-100" },
-    { title: "Pendaftar PPDB", value: data?.statistik.totalPendaftar || 0, icon: Users, color: "text-purple-600", bg: "bg-purple-100" },
+  const stats: DashboardStat[] = [
+    { title: "Siswa aktif", value: data.statistik.totalSiswa },
+    { title: "Tenaga pendidik", value: data.statistik.totalGuru },
+    { title: "Rombongan belajar", value: data.statistik.totalKelas },
+    { title: "Pendaftar PPDB", value: data.statistik.totalPendaftar },
   ];
 
   return (
-    <div className="p-6 md:p-8 max-w-[1280px] mx-auto space-y-8">
-      
-      {/* Welcome Banner */}
-      <div className="bg-[#0053FF] rounded-[24px] p-8 md:p-10 text-white shadow-xl shadow-blue-500/20 relative overflow-hidden">
-        <div className="relative z-10">
-          <h1 className="text-3xl font-bold mb-2">Selamat Datang, {userName}! 👋</h1>
-          <p className="text-blue-100 max-w-xl">
-            Sistem Informasi Digital Sekolah (SIDS) berjalan dengan baik. Berikut adalah ringkasan operasional akademik untuk hari ini.
+    <div className="mx-auto max-w-[1280px] space-y-8 p-4 sm:p-6 lg:p-8">
+      <header className="flex flex-col gap-4 border-b border-brand-line pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-semibold text-brand-ink-dark">
+            Selamat datang, {userName}
+          </h1>
+          <p className="text-sm leading-6 text-brand-ink-muted">
+            Ringkasan data operasional sekolah.
           </p>
-          <div className="mt-6 inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-sm font-semibold border border-white/30">
-            <CalendarClock className="w-4 h-4" />
-            {data?.informasi_akademik}
-          </div>
         </div>
-        {/* Dekorasi Abstrak */}
-        <div className="absolute right-0 top-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-10 -mt-20 pointer-events-none"></div>
-      </div>
+        {data.informasi_akademik && (
+          <p className="inline-flex min-h-10 items-center rounded-lg border border-brand-line bg-brand-surface px-3 text-sm text-brand-ink">
+            {data.informasi_akademik}
+          </p>
+        )}
+      </header>
 
-      {/* Grid Statistik */}
-      <h2 className="text-xl font-bold text-[#00232C] flex items-center gap-2">
-        <Activity className="text-[#0053FF]" /> Ikhtisar Data
-      </h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {statCards.map((stat, idx) => (
-          <div key={idx} className="bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] p-6 shadow-[0_10px_30px_rgba(0,35,44,0.08)] flex items-center gap-5 transition-transform hover:-translate-y-1">
-            <div className={`p-4 rounded-2xl ${stat.bg} ${stat.color}`}>
-              <stat.icon className="w-8 h-8" />
+      <section aria-labelledby="school-overview-title" className="space-y-4">
+        <h2
+          id="school-overview-title"
+          className="text-xl font-semibold text-brand-ink-dark"
+        >
+          Ikhtisar sekolah
+        </h2>
+        <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {stats.map((stat) => (
+            <div
+              key={stat.title}
+              className="min-w-0 rounded-xl border border-brand-line bg-brand-surface p-5 shadow-sm"
+            >
+              <dt className="whitespace-nowrap text-sm font-medium text-brand-ink-muted">
+                {stat.title}
+              </dt>
+              <dd className="mt-3 text-3xl font-semibold tabular-nums text-brand-ink-dark">
+                {new Intl.NumberFormat("id-ID").format(stat.value)}
+              </dd>
             </div>
-            <div>
-              <p className="text-sm font-semibold text-gray-500 mb-1">{stat.title}</p>
-              <h3 className="text-3xl font-bold text-[#00232C]">{stat.value}</h3>
-            </div>
-          </div>
-        ))}
-      </div>
-
+          ))}
+        </dl>
+      </section>
     </div>
   );
 }

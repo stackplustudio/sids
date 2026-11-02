@@ -6,16 +6,10 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Warna background #F4F7FE ini penting agar menyatu sempurna dengan efek "cutout" Sidebar
-    <div className="flex min-h-screen bg-[#F4F7FE]">
-      {/* Sidebar tetap di kiri */}
+    <div className="flex min-h-svh bg-brand-background">
       <Sidebar />
-      
-      {/* Area konten dinamis di kanan */}
-      <main className="flex-1 overflow-x-hidden overflow-y-auto">
-        <div className="min-h-screen p-4 md:p-8">
-          {children}
-        </div>
+      <main className="min-w-0 flex-1 overflow-x-clip overflow-y-auto pt-16 lg:pt-0">
+        {children}
       </main>
     </div>
   );

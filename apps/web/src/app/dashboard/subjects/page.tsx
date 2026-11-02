@@ -50,29 +50,29 @@ export default function MasterDataMapelPage() {
     }
   };
 
-  if (isLoading) return <div className="p-8">Memuat Data Mata Pelajaran...</div>;
+  if (isLoading) return <div className="p-8">Memuat Data Mata Pelajaran…</div>;
 
   return (
     <div className="p-6 md:p-8 max-w-[1280px] mx-auto space-y-8">
       <div className="flex items-center gap-3">
-        <div className="p-3 bg-teal-500/10 rounded-xl text-teal-600">
+        <div className="p-3 bg-info-soft rounded-xl text-info">
           <BookOpen className="h-6 w-6" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-[#00232C]">Master Data Mata Pelajaran</h1>
-          <p className="text-[#00232C]/60 text-sm mt-1">Kelola daftar kurikulum dan mata pelajaran sekolah.</p>
+          <h1 className="text-2xl font-bold text-brand-ink-dark">Master Data Mata Pelajaran</h1>
+          <p className="text-brand-ink-dark/60 text-sm mt-1">Kelola daftar kurikulum dan mata pelajaran sekolah.</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Form Tambah Mapel */}
-        <div className="lg:col-span-1 bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] p-6 shadow-[0_10px_30px_rgba(0,35,44,0.08)] h-fit">
-          <h3 className="font-bold text-[#00232C] mb-4 flex items-center gap-2">
+        <div className="lg:col-span-1 bg-brand-surface  border border-brand-line rounded-xl p-6 shadow-sm h-fit">
+          <h3 className="font-bold text-brand-ink-dark mb-4 flex items-center gap-2">
             <Plus className="h-4 w-4" /> Tambah Mata Pelajaran
           </h3>
           <form onSubmit={handleAddSubject} className="space-y-4">
             <div>
-              <label className="text-xs font-semibold text-[#00232C]/60 mb-1 block">Nama Mata Pelajaran</label>
+              <label className="text-xs font-semibold text-brand-ink-dark/60 mb-1 block">Nama Mata Pelajaran</label>
               <Input 
                 required 
                 placeholder="Misal: Matematika Wajib" 
@@ -80,34 +80,34 @@ export default function MasterDataMapelPage() {
                 onChange={(e) => setFormData({ ...formData, nama_mapel: e.target.value })} 
               />
             </div>
-            <Button type="submit" disabled={isSubmitting} className="w-full bg-teal-600 hover:bg-teal-700 text-white border-0">
-              {isSubmitting ? "Menyimpan..." : "Simpan Mata Pelajaran"}
+            <Button type="submit" disabled={isSubmitting} className="w-full bg-info hover:bg-info text-brand-on-primary border-0">
+              {isSubmitting ? "Menyimpan…" : "Simpan Mata Pelajaran"}
             </Button>
           </form>
         </div>
 
         {/* Tabel Data Mapel */}
-        <div className="lg:col-span-2 bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] shadow-[0_10px_30px_rgba(0,35,44,0.08)] overflow-hidden">
+        <div className="lg:col-span-2 bg-brand-surface  border border-brand-line rounded-xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-[#00232C]/10 bg-white/50 text-[#00232C] text-sm uppercase tracking-wider">
+                <tr className="border-b border-brand-ink-dark/10 bg-brand-surface-alt text-brand-ink-dark text-sm ">
                   <th className="p-4 font-semibold w-16 text-center">No</th>
                   <th className="p-4 font-semibold">Mata Pelajaran</th>
                   <th className="p-4 font-semibold">ID Sistem</th>
                 </tr>
               </thead>
-              <tbody className="text-sm text-[#00232C]/80 divide-y divide-[#00232C]/5">
+              <tbody className="text-sm text-brand-ink-dark/80 divide-y divide-brand-ink-dark/5">
                 {subjects.length === 0 ? (
                   <tr>
-                    <td colSpan={3} className="p-8 text-center text-[#00232C]/60">Belum ada data mata pelajaran.</td>
+                    <td colSpan={3} className="p-8 text-center text-brand-ink-dark/60">Belum ada data mata pelajaran.</td>
                   </tr>
                 ) : (
                   subjects.map((subject, index) => (
-                    <tr key={subject.id} className="hover:bg-white/40 transition-colors">
-                      <td className="p-4 text-center font-semibold text-[#00232C]/50">{index + 1}</td>
-                      <td className="p-4 font-bold text-[#00232C]">{subject.nama_mapel}</td>
-                      <td className="p-4 text-xs font-mono text-gray-400">{subject.id}</td>
+                    <tr key={subject.id} className="hover:bg-brand-surface-alt transition-colors">
+                      <td className="p-4 text-center font-semibold text-brand-ink-dark/50">{index + 1}</td>
+                      <td className="p-4 font-bold text-brand-ink-dark">{subject.nama_mapel}</td>
+                      <td className="p-4 text-xs font-mono text-brand-ink-muted">{subject.id}</td>
                     </tr>
                   ))
                 )}

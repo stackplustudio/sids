@@ -97,19 +97,19 @@ export default function FinancePage() {
     return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(angka);
   };
 
-  if (isLoading) return <div className="p-8">Memuat Data Keuangan...</div>;
+  if (isLoading) return <div className="p-8">Memuat Data Keuangan…</div>;
 
   return (
     <div className="p-6 md:p-8 max-w-[1280px] mx-auto space-y-6">
       
       {/* Header */}
-      <div className="flex items-center gap-3 bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] p-6 shadow-[0_10px_30px_rgba(0,35,44,0.08)]">
-        <div className="p-3 bg-[#0053FF]/10 rounded-xl text-[#0053FF]">
+      <div className="flex items-center gap-3 bg-brand-surface  border border-brand-line rounded-xl p-6 shadow-sm">
+        <div className="p-3 bg-brand-primary/10 rounded-xl text-brand-primary">
           <Wallet className="h-6 w-6" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-[#00232C]">Keuangan & SPP</h1>
-          <p className="text-[#00232C]/60 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-brand-ink-dark">Keuangan & SPP</h1>
+          <p className="text-brand-ink-dark/60 text-sm mt-1">
             {role === "SISWA" ? "Lihat dan lunasi tagihan administrasi sekolah Anda." : "Kelola jenis tagihan, terbitkan invoice, dan pantau pembayaran."}
           </p>
         </div>
@@ -118,25 +118,25 @@ export default function FinancePage() {
       {role !== "SISWA" && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Tambah Jenis Tagihan */}
-          <div className="bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] p-6 shadow-sm">
-            <h3 className="font-bold text-[#00232C] mb-4 flex items-center gap-2"><Plus className="w-4 h-4"/> Buat Jenis Tagihan</h3>
+          <div className="bg-brand-surface  border border-brand-line rounded-xl p-6 shadow-sm">
+            <h3 className="font-bold text-brand-ink-dark mb-4 flex items-center gap-2"><Plus className="w-4 h-4"/> Buat Jenis Tagihan</h3>
             <form onSubmit={handleCreateBillingType} className="space-y-3">
               <Input required placeholder="Nama (Cth: SPP Kelas 10)" value={newBillingType.nama} onChange={e => setNewBillingType({...newBillingType, nama: e.target.value})} />
               <Input required type="number" placeholder="Nominal Default (Cth: 500000)" value={newBillingType.nominal_default} onChange={e => setNewBillingType({...newBillingType, nominal_default: e.target.value})} />
-              <Button type="submit" className="w-full bg-gray-900 hover:bg-gray-800 text-white">Simpan Jenis Tagihan</Button>
+              <Button type="submit" className="w-full bg-brand-ink-dark hover:bg-brand-ink-dark text-brand-on-primary">Simpan Jenis Tagihan</Button>
             </form>
           </div>
 
           {/* Terbitkan Tagihan Baru */}
-          <div className="lg:col-span-2 bg-blue-50/50 backdrop-blur-[20px] border border-blue-100 rounded-[20px] p-6 shadow-sm">
-            <h3 className="font-bold text-[#0053FF] mb-4 flex items-center gap-2"><Receipt className="w-4 h-4"/> Terbitkan Tagihan Baru</h3>
+          <div className="lg:col-span-2 bg-brand-primary-soft  border border-brand-primary-soft rounded-xl p-6 shadow-sm">
+            <h3 className="font-bold text-brand-primary mb-4 flex items-center gap-2"><Receipt className="w-4 h-4"/> Terbitkan Tagihan Baru</h3>
             <form onSubmit={handleCreateInvoice} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <select required className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm" value={newInvoice.studentId} onChange={(e) => setNewInvoice({...newInvoice, studentId: e.target.value})}>
+              <select required className="flex h-10 w-full rounded-md border border-input bg-brand-surface px-3 py-2 text-sm" value={newInvoice.studentId} onChange={(e) => setNewInvoice({...newInvoice, studentId: e.target.value})}>
                 <option value="">-- Pilih Siswa --</option>
                 {students.map(s => <option key={s.id} value={s.id}>{s.nama} ({s.nis})</option>)}
               </select>
               
-              <select required className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm" value={newInvoice.billingTypeId} onChange={(e) => {
+              <select required className="flex h-10 w-full rounded-md border border-input bg-brand-surface px-3 py-2 text-sm" value={newInvoice.billingTypeId} onChange={(e) => {
                 const selected = billingTypes.find(b => b.id === e.target.value);
                 setNewInvoice({...newInvoice, billingTypeId: e.target.value, nominal: selected ? selected.nominal_default.toString() : ""});
               }}>
@@ -148,20 +148,20 @@ export default function FinancePage() {
               <Input required type="number" placeholder="Nominal Tagihan" value={newInvoice.nominal} onChange={e => setNewInvoice({...newInvoice, nominal: e.target.value})} />
               <Input required type="date" placeholder="Jatuh Tempo" value={newInvoice.jatuh_tempo} onChange={e => setNewInvoice({...newInvoice, jatuh_tempo: e.target.value})} />
               
-              <Button type="submit" className="w-full bg-[#0053FF] hover:bg-[#0047D9] text-white">Terbitkan Tagihan</Button>
+              <Button type="submit" className="w-full bg-brand-primary hover:bg-brand-primary-dark text-brand-on-primary">Terbitkan Tagihan</Button>
             </form>
           </div>
         </div>
       )}
 
       {/* Tabel Tagihan */}
-      <div className="bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] p-6 shadow-[0_10px_30px_rgba(0,35,44,0.08)]">
-        <h3 className="font-bold text-[#00232C] mb-6 flex items-center gap-2"><CreditCard className="w-5 h-5"/> Daftar Tagihan</h3>
+      <div className="bg-brand-surface  border border-brand-line rounded-xl p-6 shadow-sm">
+        <h3 className="font-bold text-brand-ink-dark mb-6 flex items-center gap-2"><CreditCard className="w-5 h-5"/> Daftar Tagihan</h3>
         
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-gray-200 bg-gray-50 text-gray-600 text-xs uppercase tracking-wider">
+              <tr className="border-b border-brand-line bg-brand-surface text-brand-ink text-xs ">
                 {role !== "SISWA" && <th className="p-4 font-semibold">Nama Siswa</th>}
                 <th className="p-4 font-semibold">Jenis Tagihan</th>
                 <th className="p-4 font-semibold">Periode</th>
@@ -171,35 +171,35 @@ export default function FinancePage() {
                 <th className="p-4 font-semibold text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 text-sm">
+            <tbody className="divide-y divide-brand-line text-sm">
               {invoices.length === 0 ? (
-                <tr><td colSpan={7} className="p-8 text-center text-gray-500">Belum ada tagihan yang diterbitkan.</td></tr>
+                <tr><td colSpan={7} className="p-8 text-center text-brand-ink-muted">Belum ada tagihan yang diterbitkan.</td></tr>
               ) : (
                 invoices.map((inv) => (
-                  <tr key={inv.id} className="hover:bg-gray-50/50">
+                  <tr key={inv.id} className="hover:bg-brand-surface-alt/70">
                     {role !== "SISWA" && (
-                      <td className="p-4 font-bold text-[#00232C]">{inv.student?.nama}</td>
+                      <td className="p-4 font-bold text-brand-ink-dark">{inv.student?.nama}</td>
                     )}
                     <td className="p-4 font-medium">{inv.billingType?.nama}</td>
-                    <td className="p-4 text-gray-600">{inv.periode}</td>
-                    <td className="p-4 font-bold text-[#0053FF]">{formatRupiah(inv.nominal)}</td>
-                    <td className="p-4 text-red-500 text-xs font-semibold">{new Date(inv.jatuh_tempo).toLocaleDateString('id-ID')}</td>
+                    <td className="p-4 text-brand-ink">{inv.periode}</td>
+                    <td className="p-4 font-bold text-brand-primary">{formatRupiah(inv.nominal)}</td>
+                    <td className="p-4 text-danger text-xs font-semibold">{new Date(inv.jatuh_tempo).toLocaleDateString('id-ID')}</td>
                     <td className="p-4">
                       {inv.status === "LUNAS" 
-                        ? <span className="px-2 py-1 bg-green-100 text-green-700 rounded-md text-xs font-bold flex items-center gap-1 w-fit"><CheckCircle className="w-3 h-3"/> LUNAS</span>
-                        : <span className="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-md text-xs font-bold flex items-center gap-1 w-fit"><Clock className="w-3 h-3"/> BELUM BAYAR</span>
+                        ? <span className="px-2 py-1 bg-success-soft text-success rounded-md text-xs font-bold flex items-center gap-1 w-fit"><CheckCircle className="w-3 h-3"/> LUNAS</span>
+                        : <span className="px-2 py-1 bg-warning-soft text-warning rounded-md text-xs font-bold flex items-center gap-1 w-fit"><Clock className="w-3 h-3"/> BELUM BAYAR</span>
                       }
                     </td>
                     <td className="p-4 text-right">
                       {inv.status === "BELUM_BAYAR" ? (
                         <Button 
                           onClick={() => handlePayInvoice(inv.id, inv.nominal)}
-                          className="bg-green-600 hover:bg-green-700 text-white text-xs h-8"
+                          className="bg-success hover:bg-success text-brand-on-primary text-xs h-8"
                         >
                           {role === "SISWA" ? "Bayar Sekarang" : "Konfirmasi Lunas"}
                         </Button>
                       ) : (
-                        <span className="text-gray-400 text-xs italic">Selesai</span>
+                        <span className="text-brand-ink-muted text-xs italic">Selesai</span>
                       )}
                     </td>
                   </tr>

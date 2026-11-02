@@ -33,37 +33,37 @@ export default function MasterDataSiswaPage() {
       student.nis.includes(searchQuery)
   );
 
-  if (isLoading) return <div className="p-8">Memuat Master Data Siswa...</div>;
+  if (isLoading) return <div className="p-8">Memuat Master Data Siswa…</div>;
 
   return (
     <div className="p-6 md:p-8 max-w-[1280px] mx-auto">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-[#0053FF]/10 rounded-xl text-[#0053FF]">
+          <div className="p-3 bg-brand-primary/10 rounded-xl text-brand-primary">
             <GraduationCap className="h-6 w-6" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#00232C]">Master Data Siswa</h1>
-            <p className="text-[#00232C]/60 text-sm mt-1">Daftar seluruh siswa aktif yang terdaftar di sistem.</p>
+            <h1 className="text-2xl font-bold text-brand-ink-dark">Master Data Siswa</h1>
+            <p className="text-brand-ink-dark/60 text-sm mt-1">Daftar seluruh siswa aktif yang terdaftar di sistem.</p>
           </div>
         </div>
 
         <div className="relative w-full md:w-72">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-brand-ink-muted" />
           <Input 
-            placeholder="Cari nama atau NIS..." 
-            className="pl-10 bg-white/50 border-gray-200"
+            placeholder="Cari nama atau NIS…"
+            className="pl-10 bg-brand-surface-alt border-brand-line"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
       </div>
 
-      <div className="bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] shadow-[0_10px_30px_rgba(0,35,44,0.08)] overflow-hidden">
+      <div className="bg-brand-surface  border border-brand-line rounded-xl shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-[#00232C]/10 bg-white/50 text-[#00232C] text-sm uppercase tracking-wider">
+              <tr className="border-b border-brand-ink-dark/10 bg-brand-surface-alt text-brand-ink-dark text-sm ">
                 <th className="p-4 font-semibold">NIS</th>
                 <th className="p-4 font-semibold">Nama Lengkap</th>
                 <th className="p-4 font-semibold">NISN</th>
@@ -71,20 +71,20 @@ export default function MasterDataSiswaPage() {
                 <th className="p-4 font-semibold">Status</th>
               </tr>
             </thead>
-            <tbody className="text-sm text-[#00232C]/80 divide-y divide-[#00232C]/5">
+            <tbody className="text-sm text-brand-ink-dark/80 divide-y divide-brand-ink-dark/5">
               {filteredStudents.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="p-8 text-center text-[#00232C]/60">Data siswa tidak ditemukan.</td>
+                  <td colSpan={5} className="p-8 text-center text-brand-ink-dark/60">Data siswa tidak ditemukan.</td>
                 </tr>
               ) : (
                 filteredStudents.map((student) => (
-                  <tr key={student.id} className="hover:bg-white/40 transition-colors">
-                    <td className="p-4 font-bold text-[#0053FF]">{student.nis}</td>
-                    <td className="p-4 font-semibold text-[#00232C]">{student.nama}</td>
+                  <tr key={student.id} className="hover:bg-brand-surface-alt transition-colors">
+                    <td className="p-4 font-bold text-brand-primary">{student.nis}</td>
+                    <td className="p-4 font-semibold text-brand-ink-dark">{student.nama}</td>
                     <td className="p-4">{student.nisn || "-"}</td>
-                    <td className="p-4 text-gray-500">{student.user?.email}</td>
+                    <td className="p-4 text-brand-ink-muted">{student.user?.email}</td>
                     <td className="p-4">
-                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-md text-xs font-bold">AKTIF</span>
+                      <span className="bg-success-soft text-success px-2 py-1 rounded-md text-xs font-bold">AKTIF</span>
                     </td>
                   </tr>
                 ))

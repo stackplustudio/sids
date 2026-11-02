@@ -75,24 +75,24 @@ export default function PenempatanSiswaPage() {
     }
   };
 
-  if (isLoading) return <div className="p-8">Memuat Data Penempatan...</div>;
+  if (isLoading) return <div className="p-8">Memuat Data Penempatan…</div>;
 
   return (
     <div className="p-6 md:p-8 max-w-[1280px] mx-auto space-y-8">
       <div className="flex items-center gap-3">
-        <div className="p-3 bg-[#0053FF]/10 rounded-xl text-[#0053FF]">
+        <div className="p-3 bg-brand-primary/10 rounded-xl text-brand-primary">
           <UserPlus className="h-6 w-6" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-[#00232C]">Penempatan Siswa</h1>
-          <p className="text-[#00232C]/60 text-sm mt-1">Masukkan siswa yang belum memiliki kelas ke dalam rombongan belajar.</p>
+          <h1 className="text-2xl font-bold text-brand-ink-dark">Penempatan Siswa</h1>
+          <p className="text-brand-ink-dark/60 text-sm mt-1">Masukkan siswa yang belum memiliki kelas ke dalam rombongan belajar.</p>
         </div>
       </div>
 
       {/* Header Pemilihan Kelas */}
-      <div className="bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] p-6 shadow-[0_10px_30px_rgba(0,35,44,0.08)] flex flex-col md:flex-row md:items-center gap-4">
+      <div className="bg-brand-surface  border border-brand-line rounded-xl p-6 shadow-sm flex flex-col md:flex-row md:items-center gap-4">
         <div className="flex-1">
-          <label className="text-xs font-semibold text-[#00232C]/60 mb-2 block">Pilih Kelas Tujuan</label>
+          <label className="text-xs font-semibold text-brand-ink-dark/60 mb-2 block">Pilih Kelas Tujuan</label>
           <select 
             className="flex h-10 w-full md:w-96 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             value={selectedClassId}
@@ -104,14 +104,14 @@ export default function PenempatanSiswaPage() {
           </select>
         </div>
         {classDetails && (
-          <div className="flex gap-6 bg-[#0053FF]/5 px-6 py-3 rounded-xl border border-[#0053FF]/10">
+          <div className="flex gap-6 bg-brand-primary/5 px-6 py-3 rounded-xl border border-brand-primary/10">
             <div>
-              <p className="text-xs text-gray-500">Wali Kelas</p>
-              <p className="font-semibold text-[#00232C]">{classDetails.waliKelas?.name}</p>
+              <p className="text-xs text-brand-ink-muted">Wali Kelas</p>
+              <p className="font-semibold text-brand-ink-dark">{classDetails.waliKelas?.name}</p>
             </div>
             <div>
-              <p className="text-xs text-gray-500">Jumlah Siswa</p>
-              <p className="font-semibold text-[#00232C]">{classDetails.enrollments?.length || 0} Anak</p>
+              <p className="text-xs text-brand-ink-muted">Jumlah Siswa</p>
+              <p className="font-semibold text-brand-ink-dark">{classDetails.enrollments?.length || 0} Anak</p>
             </div>
           </div>
         )}
@@ -119,23 +119,23 @@ export default function PenempatanSiswaPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* KOLOM KIRI: Siswa di Kelas Terpilih */}
-        <div className="bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] shadow-[0_10px_30px_rgba(0,35,44,0.08)] overflow-hidden flex flex-col">
-          <div className="p-4 border-b border-[#00232C]/10 bg-white/50">
-            <h3 className="font-bold text-[#00232C] flex items-center gap-2">
+        <div className="bg-brand-surface  border border-brand-line rounded-xl shadow-sm overflow-hidden flex flex-col">
+          <div className="p-4 border-b border-brand-ink-dark/10 bg-brand-surface-alt">
+            <h3 className="font-bold text-brand-ink-dark flex items-center gap-2">
               <Users className="h-4 w-4" /> Daftar Siswa di Kelas Ini
             </h3>
           </div>
           <div className="p-4 flex-1 max-h-[500px] overflow-y-auto">
             {classDetails?.enrollments?.length === 0 ? (
-              <p className="text-center text-gray-500 text-sm mt-8">Kelas ini masih kosong.</p>
+              <p className="text-center text-brand-ink-muted text-sm mt-8">Kelas ini masih kosong.</p>
             ) : (
               <ul className="space-y-3">
                 {classDetails?.enrollments?.map((enrollment: any, index: number) => (
-                  <li key={enrollment.id} className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                    <span className="text-gray-400 font-semibold w-6 text-center">{index + 1}</span>
+                  <li key={enrollment.id} className="flex items-center gap-4 p-3 bg-brand-surface rounded-xl border border-brand-line">
+                    <span className="text-brand-ink-muted font-semibold w-6 text-center">{index + 1}</span>
                     <div>
-                      <p className="font-bold text-[#00232C]">{enrollment.student.nama}</p>
-                      <p className="text-xs text-gray-500">NIS: {enrollment.student.nis}</p>
+                      <p className="font-bold text-brand-ink-dark">{enrollment.student.nama}</p>
+                      <p className="text-xs text-brand-ink-muted">NIS: {enrollment.student.nis}</p>
                     </div>
                   </li>
                 ))}
@@ -145,27 +145,27 @@ export default function PenempatanSiswaPage() {
         </div>
 
         {/* KOLOM KANAN: Siswa Belum Punya Kelas */}
-        <div className="bg-blue-50/50 backdrop-blur-[20px] border border-blue-100 rounded-[20px] shadow-[0_10px_30px_rgba(0,35,44,0.08)] overflow-hidden flex flex-col">
-          <div className="p-4 border-b border-blue-100 bg-blue-50">
-            <h3 className="font-bold text-[#0053FF] flex items-center gap-2">
+        <div className="bg-brand-primary-soft  border border-brand-primary-soft rounded-xl shadow-sm overflow-hidden flex flex-col">
+          <div className="p-4 border-b border-brand-primary-soft bg-brand-primary-soft">
+            <h3 className="font-bold text-brand-primary flex items-center gap-2">
               <UserPlus className="h-4 w-4" /> Siswa Belum Mendapat Kelas ({unenrolledStudents.length})
             </h3>
           </div>
           <div className="p-4 flex-1 max-h-[500px] overflow-y-auto">
             {unenrolledStudents.length === 0 ? (
-              <p className="text-center text-gray-500 text-sm mt-8">Semua siswa sudah masuk ke kelas.</p>
+              <p className="text-center text-brand-ink-muted text-sm mt-8">Semua siswa sudah masuk ke kelas.</p>
             ) : (
               <ul className="space-y-3">
                 {unenrolledStudents.map((student) => (
-                  <li key={student.id} className="flex items-center justify-between p-3 bg-white rounded-xl border border-blue-100 shadow-sm">
+                  <li key={student.id} className="flex items-center justify-between p-3 bg-brand-surface rounded-xl border border-brand-primary-soft shadow-sm">
                     <div>
-                      <p className="font-bold text-[#00232C]">{student.nama}</p>
-                      <p className="text-xs text-gray-500">NIS: {student.nis}</p>
+                      <p className="font-bold text-brand-ink-dark">{student.nama}</p>
+                      <p className="text-xs text-brand-ink-muted">NIS: {student.nis}</p>
                     </div>
                     {/* 🔥 Menggunakan Button Primary sesuai ui.md */}
                     <Button 
                       onClick={() => handleEnroll(student.id)}
-                      className="bg-[#0053FF] hover:bg-[#0047D9] text-white h-8 px-3 text-xs flex items-center gap-1"
+                      className="bg-brand-primary hover:bg-brand-primary-dark text-brand-on-primary h-8 px-3 text-xs flex items-center gap-1"
                     >
                       Masukkan <ArrowRight className="h-3 w-3" />
                     </Button>

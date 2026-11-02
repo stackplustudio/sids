@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Eduscout | Navigate Learning With Confidence",
-  description: "Core Engine V1.0",
+  description: "Portal digital terintegrasi untuk layanan akademik dan operasional sekolah.",
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="id">
       <body className={inter.className}>
         {children}
         <Toaster position="top-center" reverseOrder={false} /> {/* TAMBAHKAN INI */}

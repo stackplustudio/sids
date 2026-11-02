@@ -54,82 +54,82 @@ export default function MasterDataGuruPage() {
     toast.success("Disalin!");
   };
 
-  if (isLoading) return <div className="p-8">Memuat Master Data Guru...</div>;
+  if (isLoading) return <div className="p-8">Memuat Master Data Guru…</div>;
 
   return (
     <div className="p-6 md:p-8 max-w-[1280px] mx-auto space-y-8">
       <div className="flex items-center gap-3">
-        <div className="p-3 bg-purple-500/10 rounded-xl text-purple-600">
+        <div className="p-3 bg-brand-primary-soft rounded-xl text-brand-primary">
           <Briefcase className="h-6 w-6" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-[#00232C]">Master Data Guru</h1>
-          <p className="text-[#00232C]/60 text-sm mt-1">Kelola data tenaga pendidik dan akun login mereka.</p>
+          <h1 className="text-2xl font-bold text-brand-ink-dark">Master Data Guru</h1>
+          <p className="text-brand-ink-dark/60 text-sm mt-1">Kelola data tenaga pendidik dan akun login mereka.</p>
         </div>
       </div>
 
       {/* Area Notifikasi Akun Baru */}
       {newAccount && (
-        <div className="p-6 bg-green-50 border border-green-200 rounded-[20px] flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="p-6 bg-success-soft border border-success/30 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-4">
-            <CheckCircle2 className="h-8 w-8 text-green-600" />
+            <CheckCircle2 className="h-8 w-8 text-success" />
             <div>
-              <h3 className="font-bold text-green-800">Akun Berhasil Dibuat</h3>
-              <p className="text-sm text-green-700">Berikan kredensial ini kepada guru yang bersangkutan.</p>
+              <h3 className="font-bold text-success">Akun Berhasil Dibuat</h3>
+              <p className="text-sm text-success">Berikan kredensial ini kepada guru yang bersangkutan.</p>
             </div>
           </div>
-          <div className="bg-white p-3 rounded-xl shadow-sm border border-green-100 flex gap-4 text-sm">
-            <div><span className="text-gray-500 text-xs block">Email</span><span className="font-semibold">{newAccount.user.email}</span></div>
-            <div><span className="text-gray-500 text-xs block">Password</span><span className="font-semibold">{newAccount.defaultPassword}</span></div>
-            <button onClick={() => copyToClipboard(`Email: ${newAccount.user.email} | Password: ${newAccount.defaultPassword}`)} className="text-[#0053FF] hover:bg-blue-50 p-2 rounded"><Copy className="h-4 w-4"/></button>
+          <div className="bg-brand-surface p-3 rounded-xl shadow-sm border border-success/20 flex gap-4 text-sm">
+            <div><span className="text-brand-ink-muted text-xs block">Email</span><span className="font-semibold">{newAccount.user.email}</span></div>
+            <div><span className="text-brand-ink-muted text-xs block">Password</span><span className="font-semibold">{newAccount.defaultPassword}</span></div>
+            <button onClick={() => copyToClipboard(`Email: ${newAccount.user.email} | Password: ${newAccount.defaultPassword}`)} className="text-brand-primary hover:bg-brand-primary-soft p-2 rounded"><Copy className="h-4 w-4"/></button>
           </div>
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Form Tambah Guru */}
-        <div className="lg:col-span-1 bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] p-6 shadow-[0_10px_30px_rgba(0,35,44,0.08)] h-fit">
-          <h3 className="font-bold text-[#00232C] mb-4 flex items-center gap-2">
+        <div className="lg:col-span-1 bg-brand-surface  border border-brand-line rounded-xl p-6 shadow-sm h-fit">
+          <h3 className="font-bold text-brand-ink-dark mb-4 flex items-center gap-2">
             <Plus className="h-4 w-4" /> Tambah Guru Baru
           </h3>
           <form onSubmit={handleAddTeacher} className="space-y-4">
             <div>
-              <label className="text-xs font-semibold text-[#00232C]/60 mb-1 block">Nama Lengkap & Gelar</label>
+              <label className="text-xs font-semibold text-brand-ink-dark/60 mb-1 block">Nama Lengkap & Gelar</label>
               <Input required placeholder="Misal: Budi Cahyono, S.Kom" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
             </div>
             <div>
-              <label className="text-xs font-semibold text-[#00232C]/60 mb-1 block">Email Akun</label>
+              <label className="text-xs font-semibold text-brand-ink-dark/60 mb-1 block">Email Akun</label>
               <Input required type="email" placeholder="budi@guru.stackplustudio.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
             </div>
-            <Button type="submit" disabled={isSubmitting} className="w-full bg-[#0053FF] hover:bg-[#0047D9] text-white">
-              {isSubmitting ? "Memproses..." : "Buat Akun Guru"}
+            <Button type="submit" disabled={isSubmitting} className="w-full bg-brand-primary hover:bg-brand-primary-dark text-brand-on-primary">
+              {isSubmitting ? "Memproses…" : "Buat Akun Guru"}
             </Button>
           </form>
         </div>
 
         {/* Tabel Data Guru */}
-        <div className="lg:col-span-2 bg-white/70 backdrop-blur-[20px] border border-white/60 rounded-[20px] shadow-[0_10px_30px_rgba(0,35,44,0.08)] overflow-hidden">
+        <div className="lg:col-span-2 bg-brand-surface  border border-brand-line rounded-xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-[#00232C]/10 bg-white/50 text-[#00232C] text-sm uppercase tracking-wider">
+                <tr className="border-b border-brand-ink-dark/10 bg-brand-surface-alt text-brand-ink-dark text-sm ">
                   <th className="p-4 font-semibold">Nama Guru</th>
                   <th className="p-4 font-semibold">Email Login</th>
                   <th className="p-4 font-semibold text-center">Status</th>
                 </tr>
               </thead>
-              <tbody className="text-sm text-[#00232C]/80 divide-y divide-[#00232C]/5">
+              <tbody className="text-sm text-brand-ink-dark/80 divide-y divide-brand-ink-dark/5">
                 {teachers.length === 0 ? (
                   <tr>
-                    <td colSpan={3} className="p-8 text-center text-[#00232C]/60">Belum ada data guru.</td>
+                    <td colSpan={3} className="p-8 text-center text-brand-ink-dark/60">Belum ada data guru.</td>
                   </tr>
                 ) : (
                   teachers.map((teacher) => (
-                    <tr key={teacher.id} className="hover:bg-white/40 transition-colors">
-                      <td className="p-4 font-semibold text-[#00232C]">{teacher.name}</td>
-                      <td className="p-4 text-gray-500">{teacher.email}</td>
+                    <tr key={teacher.id} className="hover:bg-brand-surface-alt transition-colors">
+                      <td className="p-4 font-semibold text-brand-ink-dark">{teacher.name}</td>
+                      <td className="p-4 text-brand-ink-muted">{teacher.email}</td>
                       <td className="p-4 text-center">
-                        <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-md text-xs font-bold">AKTIF</span>
+                        <span className="bg-brand-primary-soft text-brand-primary-dark px-2 py-1 rounded-md text-xs font-bold">AKTIF</span>
                       </td>
                     </tr>
                   ))

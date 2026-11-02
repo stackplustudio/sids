@@ -38,13 +38,13 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 p-8">
+    <div className="min-h-screen bg-brand-background p-8">
       <div className="max-w-6xl mx-auto">
         {/* BAGIAN HEADER YANG DIUPDATE */}
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-zinc-900">Manajemen User</h1>
-            <p className="text-zinc-500">Blueprint CRUD Core Engine</p>
+            <h1 className="text-3xl font-bold text-brand-ink-dark">Manajemen User</h1>
+            <p className="text-brand-ink-muted">Blueprint CRUD Core Engine</p>
           </div>
           <div className="flex gap-4">
             <Link href="/dashboard">
@@ -57,9 +57,9 @@ export default function UsersPage() {
         </div>
         {/* ... (SISA KODE TABEL DI BAWAHNYA TETAP SAMA) ... */}
         
-        <div className="bg-white rounded-lg shadow border border-zinc-200 overflow-hidden">
-          <table className="w-full text-left text-sm text-zinc-600">
-            <thead className="bg-zinc-100 border-b border-zinc-200 text-zinc-900">
+        <div className="bg-brand-surface rounded-lg shadow border border-brand-line overflow-hidden">
+          <table className="w-full text-left text-sm text-brand-ink">
+            <thead className="bg-brand-surface-alt border-b border-brand-line text-brand-ink-dark">
               <tr>
                 <th className="px-6 py-4 font-semibold">Nama</th>
                 <th className="px-6 py-4 font-semibold">Email</th>
@@ -70,7 +70,7 @@ export default function UsersPage() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center">Memuat data...</td>
+                  <td colSpan={4} className="px-6 py-8 text-center">Memuat data…</td>
                 </tr>
               ) : users.length === 0 ? (
                 <tr>
@@ -78,11 +78,11 @@ export default function UsersPage() {
                 </tr>
               ) : (
                 users.map((user) => (
-                  <tr key={user.id} className="border-b border-zinc-100 hover:bg-zinc-50 transition">
-                    <td className="px-6 py-4 font-medium text-zinc-900">{user.name || "-"}</td>
+                  <tr key={user.id} className="border-b border-brand-line hover:bg-brand-surface-alt transition">
+                    <td className="px-6 py-4 font-medium text-brand-ink-dark">{user.name || "-"}</td>
                     <td className="px-6 py-4">{user.email}</td>
                     <td className="px-6 py-4">
-                      <span className="px-2 py-1 bg-zinc-900 text-white text-xs rounded-full">
+                      <span className="px-2 py-1 bg-brand-ink-dark text-brand-on-primary text-xs rounded-full">
                         {user.role}
                       </span>
                     </td>
